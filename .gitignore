@@ -108,3 +108,4 @@ vagrant/.vagrant/*
 
 # Custom Settings
 client_secrets.json
+g_client_id
