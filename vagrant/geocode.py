@@ -37,10 +37,11 @@ def get_coordinates(input_string):
     try:
         latitude = response['results'][0]['geometry']['location']['lat']
         longitude = response['results'][0]['geometry']['location']['lng']
-        location_string = response['results'][0]['formatted_address']
+        # location_string = response['results'][0]['formatted_address']
     except Exception as e:
         print('Error in extracting information from response: {}'.format(e))
     else:
-        print(location_string)
-        print('longitude = {}'.format(longitude))
-        print('latitude = {}'.format(latitude))
+        return {'lng': longitude, 'lat': latitude}
+        # print(location_string)
+        # print('longitude = {}'.format(longitude))
+        # print('latitude = {}'.format(latitude))
