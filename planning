@@ -1,0 +1,33 @@
+create api mashup
+-function returns restaurant, based off a meal type argument and location string
+    -uses google for geocoding and then passes this and meal type to foursquare for restaurant recommendations
+    -should only return one restaurant
+    -should also return a picture of the restaurant at 300x300 size
+    -return format to stdout should be
+        -Restaurant Name:
+        -Restaurant Address:
+        -Image:
+    - should also return a dictionary with this data
+
+foursquare search request parameters:
+-base url
+-ll(latitude, longitude from google geocode)
+-intent
+-radius
+-version
+-query
+
+foursquare search response details:
+-name
+-formattedAddress[indices 0-3]
+-categories[0]['id'] (used so that we can get picture of restaurant later)
+
+foursquare venue photo data request details:
+-base_url
+-VENUE_ID
+
+foursquare venue photo data response details:
+-response['photos']['items'][0]['prefix']
+-response['photos']['items'][0]['suffix']
+-The items above are needed to create the URI to get the image
+
