@@ -15,8 +15,6 @@ def get_coordinates(input_string):
             g_id = client_id.read()
     except IOError as e:
         print('Could not open g_client_id.txt: {}'.format(e))
-    else:
-        print(g_id)
 
     # Create the URL for API request
     base_url = 'https://maps.googleapis.com/maps/api/geocode/json'
@@ -27,4 +25,15 @@ def get_coordinates(input_string):
 
     # Use requests library to send request to Google API
     response = requests.get(url=base_url, params=params).json()
-    print(response)
+
+    # Extract longitude, latitude, and location name response
+    try:
+        latitude = response['results'][0]['geometry']['location']['lat']
+        longitude = response['results'][0]['geometry']['location']['lng']
+        location_string = response['results'][0]['formatted_address']
+    except Exception as e:
+        print('Error in extracting information from response: {}'.format(e))
+    else:
+        print(location_string)
+        print('longitude = {}'.format(longitude))
+        print('latitude = {}'.format(latitude))
