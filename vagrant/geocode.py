@@ -2,6 +2,17 @@ import json
 import requests
 
 
+def open_id_file(filename):
+    try:
+        with open(filename) as id_file:
+            id = id_file.read().rstrip('\n')
+    except IOError as e:
+        print('Could not open {}: {}'.format(filename, e))
+    else:
+        return id
+    return None
+
+
 def get_coordinates(input_string):
     """Takes an input string of a location
     and returns the long/lat coordinates of the
@@ -10,11 +21,7 @@ def get_coordinates(input_string):
     # Try and retrieve client_id from file.
     # Used to keep the client_id from making it
     # into version control.
-    try:
-        with open('g_client_id') as client_id:
-            g_id = client_id.read()
-    except IOError as e:
-        print('Could not open g_client_id.txt: {}'.format(e))
+    g_id = open_id_file('g_client_id')
 
     # Create the URL for API request
     base_url = 'https://maps.googleapis.com/maps/api/geocode/json'
