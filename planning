@@ -10,14 +10,15 @@ create api mashup
     - should also return a dictionary with this data
 
 foursquare search request parameters:
--base url
+-base url - GET https://api.foursquare.com/v2/venues/search
 -ll(latitude, longitude from google geocode)
--intent
--radius
+-intent - 'browse'
+-radius (in meters) - 1610 # about a mile
 -version
--query
+-query - meal_type passed into function (as a string)
 
 foursquare search response details:
+-['response']['venues'][1] to get to the first restaurant
 -name
 -formattedAddress[indices 0-3]
 -categories[0]['id'] (used so that we can get picture of restaurant later)
