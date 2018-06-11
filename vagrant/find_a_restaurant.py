@@ -39,8 +39,10 @@ def find_restaurant(meal_type, location):
     if response['response']['venues']:
         restaurant = {
             'name': response['response']['venues'][0]['name'],
-            'id': response['response']['venues'][0]['id']
+            'id': response['response']['venues'][0]['id'],
+            'address': ', '.join(response['response']['venues'][0]['location']['formattedAddress'])
         }
+
     else:
         print("Oops, didnt find anything!")
         return None
@@ -65,20 +67,22 @@ def find_restaurant(meal_type, location):
     else:
         photo_uri = 'default image'
 
-    # Return all the relevant data as dict
     # At this point in execution, there should
-    # be a restaurant dict already created, just
-    # need to add the photo URL to it.
+    # be a restaurant dict already created, add
+    # photo uri to it
     restaurant['img'] = photo_uri
-    print(restaurant)
+    print('Restaurant name: {}'.format(restaurant['name']))
+    print('Location: {}'.format(restaurant['address']))
+    print('Image: {}\n'.format(restaurant['img']))
 
-# if __name__ == '__main__':
-#   find_restaurant('Pizza', 'Tokyo, Japan')
-#   find_restaurant('Tacos', 'Jakarta, Indonesia')
-#   find_restaurant('Tapas', 'Maputo, Mozambique')
-#   find_restaurant('Falafel', 'Cairo, Egypt')
-#   find_restaurant('Spaghetti', 'New Delhi, India')
-#   find_restaurant('Cappuccino', 'Geneva, Switzerland')
-#   find_restaurant('Sushi', 'Los Angeles, California')
-#   find_restaurant('Steak', 'La Paz, Bolivia')
-#   find_restaurant('Gyros', 'Sydney Australia')
+
+if __name__ == '__main__':
+    find_restaurant('Pizza', 'Tokyo, Japan')
+    find_restaurant('Tacos', 'Jakarta, Indonesia')
+    find_restaurant('Tapas', 'Maputo, Mozambique')
+    find_restaurant('Falafel', 'Cairo, Egypt')
+    find_restaurant('Spaghetti', 'New Delhi, India')
+    find_restaurant('Cappuccino', 'Geneva, Switzerland')
+    find_restaurant('Sushi', 'Los Angeles, California')
+    find_restaurant('Steak', 'La Paz, Bolivia')
+    find_restaurant('Gyros', 'Sydney Australia')
