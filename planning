@@ -1,3 +1,5 @@
+TO-TO: Figure out how to get stdout to display japanese characters
+
 create api mashup
 -function returns restaurant, based off a meal type argument and location string
     -uses google for geocoding and then passes this and meal type to foursquare for restaurant recommendations
@@ -18,10 +20,10 @@ foursquare search request parameters:
 -query - meal_type passed into function (as a string)
 
 foursquare search response details:
--['response']['venues'][1] to get to the first restaurant
+-['response']['venues'][0] to get to the first restaurant
 -name
 -formattedAddress[indices 0-3]
--categories[0]['id'] (used so that we can get picture of restaurant later)
+-['response']['venues'][0]['categories'][0]['id'] (used so that we can get picture of restaurant later)
 
 foursquare venue photo data request details:
 -base_url
