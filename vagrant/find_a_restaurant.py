@@ -9,7 +9,8 @@ import requests
 foursquare_client_id = open_id_file('fsq_client_id')
 foursquare_client_secret = open_id_file('fsq_client_secret')
 foursquare_version = '20180505'
-foursquare_photo_uri = 'https://api.foursquare.com/v2/venues/{}/photos'
+foursquare_photoinfo_uri = 'https://api.foursquare.com/v2/venues/{}/photos'
+foursquare_img_size = '300x300'
 
 
 def find_restaurant(meal_type, location):
@@ -45,17 +46,32 @@ def find_restaurant(meal_type, location):
         return None
 
     # Create URL to get image information for the restaurant
-    search_uri = foursquare_photo_uri.format(restaurant['id'])
+    search_uri = foursquare_photoinfo_uri.format(restaurant['id'])
     search_params = {
         'client_id': foursquare_client_id,
         'client_secret': foursquare_client_secret,
         'v': foursquare_version
     }
     response = requests.get(url=search_uri, params=search_params).json()
-    return response
-    # 5. Grab the first image
-    # 6. If no image is available, insert default a image url
-    # 7. Return a dictionary containing the restaurant name, address, and image url
+
+    # If response has at least one image, create URL to grab image.
+    # Otherwise, use the default image
+    if response['response']['photos']['count'] > 0:
+        img_prefix = response['response']['photos']['items'][0]['prefix']
+        img_suffix = response['response']['photos']['items'][0]['suffix']
+        photo_uri = '{}{}{}'.format(img_prefix,
+                                    foursquare_img_size,
+                                    img_suffix)
+    else:
+        photo_uri = 'default image'
+
+    # Return all the relevant data as dict
+    # At this point in execution, there should
+    # be a restaurant dict already created, just
+    # need to add the photo URL to it.
+    restaurant['img'] = photo_uri
+    print(restaurant)
+
 # if __name__ == '__main__':
 #   find_restaurant('Pizza', 'Tokyo, Japan')
 #   find_restaurant('Tacos', 'Jakarta, Indonesia')
